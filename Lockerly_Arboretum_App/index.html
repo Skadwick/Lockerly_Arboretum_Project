@@ -63,15 +63,19 @@ Fill this out later
                         <img style='width: 100%; max-width:579px;' vspace="15" src="images/findTreeBtnImg.png">
                     </a><br>
 
-                    <a href="#adminLog">
-                        <img style='width: 100%; max-width:579px;' vspace="15" src="images/Admin Log On.png">
-                    </a><br>
+                    
 
                     <a href="http://lockerly.org/">
                         <img style='width: 100%; max-width:579px;' vspace="15" src="images/lockerlyLogo.png">
                     </a>
 
                 </center>
+		
+		<!--Forces Admin Login button to bottom left of screen-->
+		<a href="#adminLog">
+                    <img style='width: 100%; max-width:200px;' vspace="15" src="images/Admin_Login.png">
+                </a><br>
+		
             </div>
         </div>
         <!--END OF HOME SCREEN-->
@@ -127,7 +131,7 @@ Fill this out later
         -->
         <div data-role="page" id="adminLog" data-add-back-btn="true">
             <div data-role="header">
-                <h1>Admin Log-On</h1>
+                <h1>Admin Login</h1>
             </div>
                     
             <div data-role="content">
@@ -139,7 +143,6 @@ Fill this out later
 		<!--Password Input-->
 		<label for="password-1"><t>Password:</t></label>
                 <input type="password-1" name="Password: " id="password-1" value="" />
-
 
                 <!--INPUT BUTTON, calls adminLog() function-->
                 <button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false" onclick="adminLog()">Submit</button>
