@@ -40,6 +40,7 @@ Fill this out later
             
    	<body>
 
+
         <!-- 
         ******************************************************************
         LOCKERLY ARBORETUM APP HOME SCREEN
@@ -62,8 +63,8 @@ Fill this out later
                         <img style='width: 100%; max-width:579px;' vspace="15" src="images/findTreeBtnImg.png">
                     </a><br>
 
-                    <a href="#findTree">
-                        <img style='width: 100%; max-width:579px;' vspace="15" src="images/findTreeBtnImg.png">
+                    <a href="#adminLog">
+                        <img style='width: 100%; max-width:579px;' vspace="15" src="images/findTreeBtnImg.png">		<!-- Change Button Image to Admin Log-On-->
                     </a><br>
 
                     <a href="http://lockerly.org/">
@@ -74,6 +75,7 @@ Fill this out later
             </div>
         </div>
         <!--END OF HOME SCREEN-->
+
 
         <!-- 
         ******************************************************************
@@ -113,6 +115,34 @@ Fill this out later
 
                 <!--INPUT BUTTON, calls searchDB() function-->
                 <button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false" onclick="searchDB()">Search</button>
+                <hr>                       
+            </div>
+        </div>  
+
+
+	<!-- 
+        ******************************************************************
+        Admin Log On PAGE
+        ******************************************************************
+        -->
+        <div data-role="page" id="adminLog" data-add-back-btn="true">
+            <div data-role="header">
+                <h1>Admin Log-On</h1>
+            </div>
+                    
+            <div data-role="content">
+
+                <!--Username Input-->
+                <label for="userName"><t>Username:</t></label>
+		<input type="userName" name="Username: " id="userName" value="" />
+
+		<!--Password Input-->
+		<label for="password-1"><t>Password:</t></label>
+                <input type="password-1" name="Password: " id="password-1" value="" />
+
+
+                <!--INPUT BUTTON, calls adminLog() function-->
+                <button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false" onclick="adminLog()">Search</button>
                 <hr>                       
             </div>
         </div>  
