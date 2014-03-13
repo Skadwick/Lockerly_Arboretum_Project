@@ -38,6 +38,8 @@ $link=db_connect();
 /*
 Creating the 'base' query. All other user choices will be
 concatenated to the end of this string.
+
+This is just an example for now
 */
 $sql_query = "SELECT attribute1, 
 					 attribute2,

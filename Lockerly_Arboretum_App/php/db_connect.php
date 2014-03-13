@@ -1,4 +1,5 @@
 <!--
+
 Author(s): Joshua Shadwick
 Date: March 13, 2014
 File: db_connect.php
@@ -16,6 +17,7 @@ the database which is to be queried.
 db_result_to_array($result) -- function which takes the result of
 a sucessful query, and stores each of the rows from the resulting
 table in an array.
+
 -->
 
 <?php
