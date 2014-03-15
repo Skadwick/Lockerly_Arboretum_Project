@@ -30,6 +30,11 @@ Fill this out later
         <script src="js/jquery-1.10.1.js"></script>   
         <script src="js/jquery.mobile-1.3.1/jquery.mobile-1.3.1.min.js"></script>
         <script src="js/findTree.js"></script>
+	<script src="js/adminLogin.js"></script>
+	<script src="js/cancel.js"></script>
+	<script src="js/clear.js"></script>
+	<script src="js/editTreeSubmit.js"></script>
+	<script src="js/newTreeSubmit.js"></script>
        	
         <!--
         Device icons, likely not needed
@@ -67,8 +72,8 @@ Fill this out later
                         <img style='width: 100%; max-width:579px;' vspace="15" src="images/lockerlyLogo.png">
                     </a><br>
 
-                    <!--Forces Admin Login button to bottom left of screen-->
-                    <a href="#adminLog">
+                    <!--Admin Login Button-->
+                    <a href="#adminLogin">
                        <img style='width: 100%; max-width:200px;' vspace="15" src="images/Admin_Login.png">
                     </a><br>
 
@@ -123,13 +128,15 @@ Fill this out later
             </div>
         </div>  
 
+	<!--END OF TREE SEARCH PAGE-->
+
 
 	<!-- 
         ******************************************************************
         Admin Log On PAGE
         ******************************************************************
         -->
-        <div data-role="page" id="adminLog" data-add-back-btn="true">
+        <div data-role="page" id="adminLogin" data-add-back-btn="true">
             <div data-role="header">
                 <h1>Admin Login</h1>
             </div>
@@ -138,21 +145,172 @@ Fill this out later
 
                 <!--Username Input-->
                 <label for="userName"><t>Username:</t></label>
-		<input type="userName" name="Username: " id="userName" value="" />
+		<input type="userName" name="userName" id="userName" value="" />
 
 		<!--Password Input-->
 		<label for="password-1"><t>Password:</t></label>
-                <input type="password-1" name="Password: " id="password-1" value="" />
+                <input type="password-1" name="password" id="password-1" value="" />
 
                 <!--INPUT BUTTON, calls adminLog() function-->
-                <button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false" onclick="adminLog()">Submit</button>
+                <button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false" onclick="adminLogin()">Submit</button>
 		<hr>
 
-		<p> Test zone for admin login function call, remove! </p> 
-		<p> Test zone for admin login function call, remove! </p>
+		<p> Test zone for admin login function call, will change when admin button is pressed. remove before project finish! </p> 
+
+		<a href="#newTree">
+                <img style='width: 100%; max-width:200px;' vspace="15" src="images/newTreeBtn.png" id = "newTreeBtn">
+		<script>
+			//makes the link/button for new tree invisible until admin login is successful
+    			document.getElementById('newTreeBtn').style.visibility = 'hidden';
+		</script>
+                </a>
+
+		<a href="#editTree">
+                <img style='width: 100%; max-width:200px;' vspace="15" src="images/editTreeBtn.png" id = "editTreeBtn">
+		<script>
+			//makes the link/button for edit tree invisible until admin login is successful
+    			document.getElementById('editTreeBtn').style.visibility = 'hidden';
+		</script>
+                </a><br>
                     
             </div>
         </div>  
+
+	<--END OF ADMIN LOGIN PAGE-->
+
+	******************************************************************
+        New Tree PAGE
+        ******************************************************************
+        -->
+        <div data-role="page" id="newTree" data-add-back-btn="true">
+            <div data-role="header">
+                <h1>Admin New Tree</h1>
+            </div>
+                    
+            <div data-role="content">
+
+                <!-- SPECIES SELECTION -->
+                <label for="select-species" class="select"><t>SPECIES</t></label>
+                <select name="select-species" id="select-species">
+                    <option value="all">All</option>
+                    <option value="oak">Oak</option>
+                    <option value="pecan">Pecan</option>
+                    <option value="birch">Birch</option>
+                    <option value="etc">etc...</option>
+                </select>
+
+		<!--GPS Coordinates-->
+		<label for="gpsCords"><t>GPS Coordinates (X, Y): </t></label>
+                <input type="gpsCords" name="gpsCords" id="gpsCords" value="X, Y" />
+		<br>
+
+		<!--Donor-->
+		<label for="donorName"><t>Donor Name (Last, First): </t></label>
+                <input type="donorName" name="donorName" id="donorName" value="Last, First" />
+
+		<!--Honoree-->
+		<label for="honoreeName"><t>Honoree Name (Last, First): </t></label>
+                <input type="honoreeName" name="honoreeName" id="honoreeName" value="Last, First" />
+		<br>
+
+		<!--Value-->
+		<label for="value"><t>Value: </t></label>
+                <input type="value" name="value" id="value" value="XXX.XX" />
+
+		<!--Age-->
+		<label for="age"><t>Age: </t></label>
+                <input type="age" name="age" id="age" value="XXX" />
+		<br>
+
+		<!--Extra Info-->
+		<label for="extraInfo"><t>Extra Info: </t></label>
+                <input type="extraInfo" name="extraInfo" id="extraInfo" value="BLAH BLAH BLAH" />
+
+                <!--Cancel Button, returns to admin login page (still logged in)-->
+                <button type="cancel" data-theme="b" name="cancel" value="cancel" class="ui-btn-hidden" aria-disabled="false" onclick="cancel()">Cancel</button>
+		<hr>
+
+		<!--Clear Button, clears the data from the form-->
+                <button type="clear" data-theme="b" name="clear" value="clear" class="ui-btn-hidden" aria-disabled="false" onclick="clear()">Clear</button>
+		<hr>
+
+		<!--Submit Button, returns to admin login page (still logged in)-->
+                <button type="submit" data-theme="b" name="Submit" value="submit" class="ui-btn-hidden" aria-disabled="false" onclick="newTreeSubmit()">Submit</button>
+		<hr>
+
+		<p> Test zone for admin login function call, will change when admin button is pressed. remove before project finish! </p> 
+                    
+            </div>
+        </div>
+
+	<--END OF NEW TREE PAGE-->
+
+	******************************************************************
+	Edit PAGE
+        ******************************************************************
+        -->
+        <div data-role="page" id="editTree" data-add-back-btn="true">
+            <div data-role="header">
+                <h1>Admin Edit Tree</h1>
+            </div>
+                    
+            <div data-role="content">
+
+                <!-- SPECIES SELECTION -->
+                <label for="select-species" class="select"><t>SPECIES</t></label>
+                <select name="select-species" id="select-species">
+                    <option value="all">All</option>
+                    <option value="oak">Oak</option>
+                    <option value="pecan">Pecan</option>
+                    <option value="birch">Birch</option>
+                    <option value="etc">etc...</option>
+                </select>
+
+		<!--GPS Coordinates-->
+		<label for="gpsCords"><t>GPS Coordinates (X, Y): </t></label>
+                <input type="gpsCords" name="gpsCords" id="gpsCords" value="X, Y" />
+		<br>
+
+		<!--Donor-->
+		<label for="donorName"><t>Donor Name (Last, First): </t></label>
+                <input type="donorName" name="donorName" id="donorName" value="Last, First" />
+
+		<!--Honoree-->
+		<label for="honoreeName"><t>Honoree Name (Last, First): </t></label>
+                <input type="honoreeName" name="honoreeName" id="honoreeName" value="Last, First" />
+		<br>
+
+		<!--Value-->
+		<label for="value"><t>Value: </t></label>
+                <input type="value" name="value" id="value" value="XXX.XX" />
+
+		<!--Age-->
+		<label for="age"><t>Age: </t></label>
+                <input type="age" name="age" id="age" value="XXX" />
+		<br>
+
+		<!--Extra Info-->
+		<label for="extraInfo"><t>Extra Info: </t></label>
+                <input type="extraInfo" name="extraInfo" id="extraInfo" value="BLAH BLAH BLAH" />
+
+                <!--Cancel Button, returns to admin login page (still logged in)-->
+                <button type="cancel" data-theme="b" name="cancel" value="cancel" class="ui-btn-hidden" aria-disabled="false" onclick="cancel()">Cancel</button>
+		<hr>
+
+		<!--Search Button, clears the data from the form-->
+                <button type="search" data-theme="b" name="search" value="search" class="ui-btn-hidden" aria-disabled="false" onclick="editTreeSearch()">Search</button>
+		<hr>
+
+		<!--Submit Button, returns to admin login page (still logged in)-->
+                <button type="submit" data-theme="b" name="Submit" value="submit" class="ui-btn-hidden" aria-disabled="false" onclick="editTreeSubmit()">Submit</button>
+		<hr>
+
+		<p> Test zone for admin login function call, will change when admin button is pressed. remove before project finish! </p> 
+                   
+            </div>
+        </div>
+
+	<--END OF EDIT TREE PAGE-->
 
     </body>
 </html>
