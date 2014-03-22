@@ -1,7 +1,22 @@
 /*
-Author(s): Joshua Shadwick
-Date: March 13, 2014
-File: findTree.js
+@Authors
+<Joshua Shadwick> (Joshua.Shadwick@bobcats.gcsu.edu)
+<Phillip Vinson> (Phillip.Vinson@bobcats.gcsu.edu)
+<William Smith> (William.Smith3@bobcats.gcsu.edu)
+
+@Overview
+This mobile webpage is for Lockerly Arboretum in Milledgeville, GA.  This project was
+created by Joshua Shadwick, Phillip Vinson, and William Smith for CSCI 4320 (Software Engineering), 
+instructed by Dr. Gita Phelps during the Spring 2014 semester.
+
+This webpage's primary function is to help users locate and gather information about the
+various donated trees on the property.  Visitors to Lockerly Arboretum will be able to
+visit this page on their mobile device, and then search the database for trees based on
+their donation date, tree species, and the names of the honoree or donor. Once the specified
+tree(s) is found, it can be displayed on a map of the grounds - along with any other relevant
+information about the tree.
+
+@file description
 */
 
 
