@@ -1,38 +1,3 @@
-<!--
-@Authors
-<Joshua Shadwick> (Joshua.Shadwick@bobcats.gcsu.edu)
-<Phillip Vinson> (Phillip.Vinson@bobcats.gcsu.edu)
-<William Smith> (William.Smith3@bobcats.gcsu.edu)
-
-@Overview
-This mobile webpage is for Lockerly Arboretum in Milledgeville, GA.  This project was
-created by Joshua Shadwick, Phillip Vinson, and William Smith for CSCI 4320 (Software Engineering), 
-instructed by Dr. Gita Phelps during the Spring 2014 semester.
-
-This webpage's primary function is to help users locate and gather information about the
-various donated trees on the property.  Visitors to Lockerly Arboretum will be able to
-visit this page on their mobile device, and then search the database for trees based on
-their donation date, tree species, and the names of the honoree or donor. Once the specified
-tree(s) is found, it can be displayed on a map of the grounds - along with any other relevant
-information about the tree.
-
-@file description
-This file contains the main functions necessary for working with 
-a database in php.
-
-db_connect() -- function which attempts to connect to the server
-which contains the database.
-
-db_query($query, $db) -- function used for sending querys to
-the database.  $query contains the query to be used, and $db contains
-the database which is to be queried.
-
-db_result_to_array($result) -- function which takes the result of
-a sucessful query, and stores each of the rows from the resulting
-table in an array.
-
--->
-
 <?php
 
 /*
@@ -49,7 +14,7 @@ function db_connect()
 	$server="localhost";
 	$username="root";
 	$password="";
-   	$dbName="???";
+   	$dbName="lockarbordb";
 	
 	//Server variables
 	//$server="???";
@@ -69,7 +34,6 @@ function db_connect()
      	echo "Please Contact Your Systems Administrator with the details"; 
      	exit();
 	}
-
 	return $link;
 }
 
@@ -89,15 +53,11 @@ For other type of SQL statements, INSERT, UPDATE, DELETE,
 */
 function db_query($query, $db)
 {
-	//Attempt to query the database
 	$result = mysql_query($query, $db);
-
-	//Report any errors encountered
 	if(!$result) 
 	{
 		die("SQL_QUERY_ERR: Query failed.\nFull query: $query");
 	}
-
 	return $result;
 }
 
@@ -112,8 +72,6 @@ function db_result_to_array($result)
    $res_array = array();
    $count=0;
 
-   //Fetching each row of the relation stored in $result, and adding it
-   //to the result array, $res_array.
    while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
    {
      $res_array[$count] = $row;

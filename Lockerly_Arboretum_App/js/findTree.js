@@ -43,9 +43,10 @@ send(string) - Sends the request off to the server.
 */
 function initializeData()
 {
-	requestObj.open("GET", "../php/db_get_tree.php", true);
+	requestObj.open("GET", "http://localhost/Lockerly_Arboretum_App/php/db_get_tree.php", true);
 	requestObj.onreadystatechange = showTreeContent;
 	requestObj.send(null);
+	alert('Database Loaded!');
 }
 
 
@@ -56,10 +57,26 @@ function showTreeContent()
 {
 	if (requestObj.readyState == 4) //Request completed
 	{
-		
+		var text = requestObj.responseText;
+	    var myTrees = jQuery.parseJSON(text).media;	
+		$('#treesUL').text('');
+
+		//Retrieve each entity from the JSON encoded array
+		alert(myTrees.length);
+		for(var i = 0; i < myTrees.length; i++)
+		{
+			var tree = myTrees[i];
+			var li =$('#treesLI').clone();
+			li.removeAttr('id');
+			li.appendTo('#treesUL');
+			
+			li.find('.treeFName').text(tree['fName']);
+			li.find('.treeLName').text(tree['lName']);
+			li.find('.treeDate').text(tree['date']);
+			li.find('.treeSpecies').text(tree['species']);
+			li.data('treeID','tree'+i);			
+		}		
 	}
-
-
 }
 
 
@@ -68,5 +85,15 @@ function showTreeContent()
 */
 function searchDB()
 {
+	//Create variables based on the user input in the index.html file
+	var name = $("#name-a").val();
+	var date = $("#select-choice-1").val();
+	var species = $("#select-choice-2").val();
 
+	//Send the GET data
+	requestObj.open("GET", "http://localhost/Lockerly_Arboretum_App/php/db_get_tree.php?name=" + name + "&date=" + date + "&species=" + species + "", true);
+	requestObj.onreadystatechange = showTreeContent;
+	requestObj.send(null);
+
+	alert(name + " " + date + " " + species);
 }
