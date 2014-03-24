@@ -27,6 +27,7 @@ function adminLogin()
 	//get userName and password variables
 	var userName = $('#userName').val();
 	var password = $('#password-1').val();
+	var errorMsg = "Failed Login! Try Again!";
 
 	if(userName == "test" && password == "test")
 	{
@@ -41,19 +42,19 @@ function adminLogin()
 	{
 		if(userName == "" && password == "")
 		{
-			$('#adminLogin p').html("Failed Login, Try Again!<br>You entered Username: NULL" + "<br>Password: NULL" + "<br> TESTING ONLY");
+			popup(errorMsg);
 		}
 		else if (password == "")
 		{
-			$('#adminLogin p').html("Failed Login, Try Again!<br>You entered Username: " + userName + "<br>Password: NULL" + "<br> TESTING ONLY");
+			popup(errorMsg);
 		}
 		else if (userName == "")
 		{
-			$('#adminLogin p').html("Failed Login, Try Again!<br>You entered Username: NULL" + "<br>Password: " + password + "<br> TESTING ONLY");
+			popup(errorMsg);
 		}
 		else
 		{
-			$('#adminLogin p').html("Failed Login, Try Again!<br>You entered Username: " + userName + "<br>Password: " + password + "<br> TESTING ONLY");
+			popup(errorMsg);
 		}	
 	}
 }
