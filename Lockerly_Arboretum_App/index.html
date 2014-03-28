@@ -7,7 +7,7 @@
 @Overview
 This mobile webpage is for Lockerly Arboretum in Milledgeville, GA.  This project was
 created by Joshua Shadwick, Phillip Vinson, and William Smith for CSCI 4320 (Software Engineering), 
-instructed by Dr. Gita Phelps during the Spring 2014 semester.
+instructed by Dr. Gita Phelps during the Spring 2014 semester at Georgia College and State University.
 
 This webpage's primary function is to help users locate and gather information about the
 various donated trees on the property.  Visitors to Lockerly Arboretum will be able to
@@ -275,7 +275,7 @@ and buttons that the user will interact with.
         will search the database and gather information about any trees which
         meet the users search terms.
         -->
-        <div data-role="page" id="findTree" data-add-back-btn="true">
+        <div data-role="page" id="findTree" data-add-back-btn="true" onLoad="createDropDown();">
             <div data-role="header">
                 <h1>Tree locator</h1>
             </div>
@@ -288,14 +288,10 @@ and buttons that the user will interact with.
 
                 <!-- DATE SELECTION -->
                 <label for="select-choice-1" class="select"><t>DONATION YEAR</t></label>
-                <select name="select-choice-1" id="select-choice-1">                    
-                    <option value="all">All</option>
-                    <option value="1-Jan-50">1-Jan-50</option>
-                    <option value="15-Jan-50">15-Jan-50</option>
-                    <option value="1952">1952</option>
-                    <option value="1960">1960</option>
-                    <option value="1961">1961</option>
-                    <option value="1962">1962</option>
+                <select name="select-choice-1" id="select-choice-1"> 
+
+                    <option id="yearMenu" value="all">All</option>
+                    
                 </select>
 
                 <!-- SPECIES SELECTION -->
@@ -317,7 +313,7 @@ and buttons that the user will interact with.
                     <li>    
                         <span class="treeFName">First name</span>
                         <span class="treeLName">Last name</span>
-                        <span class="treeDate">Date</span>
+                        <span class="treeYear">Year</span>
                         <span class="treeSpecies">Species</span>   
                     </li>
                 </ul>
@@ -326,7 +322,7 @@ and buttons that the user will interact with.
                     <li  id="treesLI" style="min-height: 110px; padding-bottom:4px;">
                         <span class="treeFName">First Name</span>
                         <span class="treeLName">Last Name</span>
-                        <span class="treeDate">Date</span> 
+                        <span class="treeYear">Year</span> 
                         <span class="treeSpecies">Species</span>                         
                     </li>
                 </ul>

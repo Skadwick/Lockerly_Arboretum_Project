@@ -33,21 +33,45 @@ requestObj = new XMLHttpRequest();
 
 
 /*
-This function creates the link to allow the program to begin sending and receiving data
-with the server.  Each time the ready state of the request changes, the showTreeContent()
-function is called.
-
-open(method,url,async) - Specifies the type of request, the URL, and if the 
-request should be handled asynchronously or not.
-
-send(string) - Sends the request off to the server.
+This function populates the necessary dropdown menus for the search screen.
 */
 function initializeData()
 {
-	requestObj.open("GET", "http://localhost/Lockerly_Arboretum_App/php/db_get_tree.php", true);
-	requestObj.onreadystatechange = showTreeContent;
+	requestObj.open("GET", "./php/db_query.php?initialize=true", true);
+	requestObj.onreadystatechange = showYears;
 	requestObj.send(null);
 	alert('Database Loaded!');
+}
+
+
+
+/*
+
+*/
+function showYears()
+{
+	if (requestObj.readyState == 4) //Request completed
+	{
+		//Retrieve the JSON encoded array, which is stored at index-key: media
+		var text = requestObj.responseText;
+	    var years = jQuery.parseJSON(text).media;	
+		//$('#select-choice-1').text('');
+
+		//Alert the number of rows, for testing purposes
+		alert(years.length + " results.");
+
+		//Loop through the JSON array, and add each element to a <li>, which is then added to the <ul>
+		for(var i = 0; i < years.length; i++)
+		{
+			var year = years[i];
+			//var option = $('#yearMenu').clone();
+
+			$('#select-choice-1').append('<option id="yearMenu" value="' + year['year'] + '">' + year['year'] + '</option>');
+
+		}		
+	}
+
+
 }
 
 
@@ -82,7 +106,7 @@ function showTreeContent()
 			
 			li.find('.treeFName').text(tree['fName']);
 			li.find('.treeLName').text(tree['lName']);
-			li.find('.treeDate').text(tree['date']);
+			li.find('.treeYear').text(tree['year']);
 			li.find('.treeSpecies').text(tree['species']);
 			li.data('treeID','tree'+i);			
 		}		
@@ -100,14 +124,15 @@ function searchDB()
 {
 	//Create variables based on the user input in the index.html file
 	var name = $("#name-a").val();
-	var date = $("#select-choice-1").val();
+	var year = $("#select-choice-1").val();
 	var species = $("#select-choice-2").val();
 
 	//Send open a GET request with db_get_tree.php, and call showTreeContent when finished
-	requestObj.open("GET", "http://localhost/Lockerly_Arboretum_App/php/db_get_tree.php?name=" + name + "&date=" + date + "&species=" + species + "", true);
+	requestObj.open("GET", "./php/db_query.php?name=" + name + "&year=" + year + "&species=" + species + "", true);
 	requestObj.onreadystatechange = showTreeContent;
 	requestObj.send(null);
 
 	//Alert for testing purposes
-	alert("Name:  " + name + ", Date: " + date + ", Species: " + species);
+	alert("Name:  " + name + ", Year: " + year + ", Species: " + species);
 }
+
