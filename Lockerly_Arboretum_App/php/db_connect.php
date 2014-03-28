@@ -14,7 +14,7 @@ function db_connect()
 	$server="localhost";
 	$username="root";
 	$password="";
-   	$dbName="lockarbordb";
+   	$dbName="lockerly";
 	
 	//Server variables
 	//$server="???";

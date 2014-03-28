@@ -31,6 +31,7 @@ var requestObj = false;
 requestObj = new XMLHttpRequest();
 
 
+
 /*
 This function creates the link to allow the program to begin sending and receiving data
 with the server.  Each time the ready state of the request changes, the showTreeContent()
@@ -50,19 +51,28 @@ function initializeData()
 }
 
 
-/*
 
+/*
+This function is called when the ready state of the XMLHttpRequest object changes
+its ready state.  Once the ready state is 4, then the request is complete and a
+response has been received. The response text of the request is received, and the
+JSON encoded array is extracted.  This array contains the results from the search
+query.  Finally, each element of the array (which is one row or entity) if added to
+an unordered list in the index file, '#treeUL'.
 */
 function showTreeContent()
 {
 	if (requestObj.readyState == 4) //Request completed
 	{
+		//Retrieve the JSON encoded array, which is stored at index-key: media
 		var text = requestObj.responseText;
 	    var myTrees = jQuery.parseJSON(text).media;	
 		$('#treesUL').text('');
 
-		//Retrieve each entity from the JSON encoded array
-		alert(myTrees.length);
+		//Alert the number of rows, for testing purposes
+		alert(myTrees.length + " results.");
+
+		//Loop through the JSON array, and add each element to a <li>, which is then added to the <ul>
 		for(var i = 0; i < myTrees.length; i++)
 		{
 			var tree = myTrees[i];
@@ -80,8 +90,11 @@ function showTreeContent()
 }
 
 
-/*
 
+/*
+searchDB() is called from the tree search page.  After being called, it retrieves user
+input search terms, if they entered any.  Then it opens a GET request with the XMLHttpRequest object
+on the db_get_tree.php file, and sends values for name, data, and species.
 */
 function searchDB()
 {
@@ -90,10 +103,11 @@ function searchDB()
 	var date = $("#select-choice-1").val();
 	var species = $("#select-choice-2").val();
 
-	//Send the GET data
+	//Send open a GET request with db_get_tree.php, and call showTreeContent when finished
 	requestObj.open("GET", "http://localhost/Lockerly_Arboretum_App/php/db_get_tree.php?name=" + name + "&date=" + date + "&species=" + species + "", true);
 	requestObj.onreadystatechange = showTreeContent;
 	requestObj.send(null);
 
-	alert(name + " " + date + " " + species);
+	//Alert for testing purposes
+	alert("Name:  " + name + ", Date: " + date + ", Species: " + species);
 }
