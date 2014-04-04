@@ -40,7 +40,7 @@ function initializeData()
 	requestObj.open("GET", "./php/db_query.php?initialize=true", true);
 	requestObj.onreadystatechange = showYears;
 	requestObj.send(null);
-	alert('Database Loaded!');
+	//alert('Database Loaded!');
 }
 
 
@@ -58,7 +58,7 @@ function showYears()
 		//$('#select-choice-1').text('');
 
 		//Alert the number of rows, for testing purposes
-		alert(years.length + " results.");
+		//alert(years.length + " results.");
 
 		//Loop through the JSON array, and add each element to a <li>, which is then added to the <ul>
 		for(var i = 0; i < years.length; i++)
@@ -90,7 +90,7 @@ function showTreeContent()
 	{
 		//Retrieve the JSON encoded array, which is stored at index-key: media
 		var text = requestObj.responseText;
-		alert(text);
+		//alert(text);
 	    var myTrees = jQuery.parseJSON(text).media;	
 		$('#treesUL').text('');
 
@@ -107,8 +107,15 @@ function showTreeContent()
 			
 			li.find('.donorName').text(tree['donor']);
 			li.find('.honoreeName').text(tree['honoree']);
-			li.find('.dedicationText').text(tree['dedication']);
-			li.find('.commonName').text(tree['common']);
+			li.find('.dedicationText').text("'" + tree['dedication'] + "'");
+
+			if (tree['common'] != '')
+				li.find('.treeName').text(tree['common']);
+			else
+				li.find('.treeName').text("Unknown Species");
+
+
+			li.find('.donationDate').text(tree['date']);
 			li.data('treeID','tree'+i);			
 		}		
 	}
@@ -134,6 +141,6 @@ function searchDB()
 	requestObj.send(null);
 
 	//Alert for testing purposes
-	alert("Name:  " + name + ", Year: " + year + ", Species: " + species);
+	//alert("Name:  " + name + ", Year: " + year + ", Species: " + species);
 }
 

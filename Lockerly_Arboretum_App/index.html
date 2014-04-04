@@ -139,10 +139,7 @@ and buttons that the user will interact with.
                     <li><a href="#directions">Directions</a></li>
                     <li><a href="#tours">Tours</a></li>
                     <li><a href="#mission">Mission</a></li>
-                    <li><a href="#history">History</a></li>
-
-
-                
+                    <li><a href="#history">History</a></li>              
             </div>
         </div>
 
@@ -318,19 +315,42 @@ and buttons that the user will interact with.
                 <!--BEGIN TREE RESULT DISPLAY-->
                 <ul data-role="listview" id="treesUL" data-inset="true" >
                     <li>    
-                        <span class="donorName">Donor</span>
-                        <span class="honoreeName">Honoree</span>
-                        <span class="dedicationText">Dedication</span>
-                        <span class="commonName">common</span>   
+                        <div class="resultNames">
+                            <span class="donorName">Donor</span>
+                            <span class="honoreeName">Honoree</span>
+                        </div>
+
+                        <div class="resultInfo">
+                            <span class="treeName">common</span>
+                            on: 
+                            <span class="donationDate">Date</span>
+                        </div>
+
+                        <div class="resultDedication">
+                            <span class="dedicationText">Dedication</span>
+                        </div>   
+
                     </li>
                 </ul>
 
                 <ul data-role="listview" id="treesUL" data-inset="true" style="visibility: hidden">
-                    <li  id="treesLI" style="min-height: 110px; padding-bottom:4px;">
-                        <span class="donorName">Donor</span>
-                        <span class="honoreeName">Honoree</span>
-                        <span class="dedicationText">Dedication</span>
-                        <span class="commonName">common</span>                          
+                    <li id="treesLI">
+                        <div class="resultNames">
+                            <span class="donorName">Donor</span>
+                            for
+                            <span class="honoreeName">Honoree</span>
+                        </div>
+
+                        <div class="resultInfo">
+                            <span class="treeName">common</span>
+                            on: 
+                            <span class="donationDate">Date</span>
+                        </div>
+
+                        <div class="resultDedication">
+                            <span class="dedicationText">Dedication</span>
+                        </div>
+                                                 
                     </li>
                 </ul>
             </div>
