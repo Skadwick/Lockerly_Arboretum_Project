@@ -2,8 +2,10 @@
  * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
  * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
  */
- $(document).on("pageshow", "#map-page", function( event ) { 
-    var defaultLatLng = new google.maps.LatLng(33.061414, -83.226385);  // Default to Lockerly Arb when no geolocation support
+ $(document).on("pageshow", "#map-page", function( event ) 
+ { 
+    // Default to Lockerly Arb when no geolocation support
+    var defaultLatLng = new google.maps.LatLng(33.061414, -83.226385);  
     
 	if ( navigator.geolocation ) 
 	{

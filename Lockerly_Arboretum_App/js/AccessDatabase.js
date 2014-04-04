@@ -90,6 +90,7 @@ function showTreeContent()
 	{
 		//Retrieve the JSON encoded array, which is stored at index-key: media
 		var text = requestObj.responseText;
+		alert(text);
 	    var myTrees = jQuery.parseJSON(text).media;	
 		$('#treesUL').text('');
 
@@ -104,10 +105,10 @@ function showTreeContent()
 			li.removeAttr('id');
 			li.appendTo('#treesUL');
 			
-			li.find('.treeFName').text(tree['fName']);
-			li.find('.treeLName').text(tree['lName']);
-			li.find('.treeYear').text(tree['year']);
-			li.find('.treeSpecies').text(tree['species']);
+			li.find('.donorName').text(tree['donor']);
+			li.find('.honoreeName').text(tree['honoree']);
+			li.find('.dedicationText').text(tree['dedication']);
+			li.find('.commonName').text(tree['common']);
 			li.data('treeID','tree'+i);			
 		}		
 	}
