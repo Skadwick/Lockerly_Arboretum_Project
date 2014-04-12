@@ -67,11 +67,8 @@ function showYears()
 			//var option = $('#yearMenu').clone();
 
 			$('#select-choice-1').append('<option id="yearMenu" value="' + year['year'] + '">' + year['year'] + '</option>');
-
 		}		
 	}
-
-
 }
 
 
@@ -90,33 +87,27 @@ function showTreeContent()
 	{
 		//Retrieve the JSON encoded array, which is stored at index-key: media
 		var text = requestObj.responseText;
-		//alert(text);
-	    var myTrees = jQuery.parseJSON(text).media;	
-		$('#treesUL').text('');
+	    var myTrees = jQuery.parseJSON(text).media;
 
-		//Alert the number of rows, for testing purposes
-		alert(myTrees.length + " results.");
+		$('#treesUL').text('');
 
 		//Loop through the JSON array, and add each element to a <li>, which is then added to the <ul>
 		for(var i = 0; i < myTrees.length; i++)
 		{
 			var tree = myTrees[i];
 			var li =$('#treesLI').clone();
+			li.text('');
+			var html = '<a href = "map.html"><div class="resultNames">' +
+					   '<span class="donorName">' + tree.donor + '</span> for ' + 
+					   '<span class="honoreeName">' + tree.honoree + '</span></div>' +
+					   '<div class="resultInfo"><span class="treeName">' + tree.common + '</span>' +
+					   ' on: <span class="donationDate">' + tree.date + '</span></div>' +
+					   '<div class="resultDedication"><span class="dedicationText">' + 
+					   tree.dedication + '</span></div>';
+			li.append(html);
+
 			li.removeAttr('id');
-			li.appendTo('#treesUL');
-			
-			li.find('.donorName').text(tree['donor']);
-			li.find('.honoreeName').text(tree['honoree']);
-			li.find('.dedicationText').text("'" + tree['dedication'] + "'");
-
-			if (tree['common'] != '')
-				li.find('.treeName').text(tree['common']);
-			else
-				li.find('.treeName').text("Unknown Species");
-
-
-			li.find('.donationDate').text(tree['date']);
-			li.data('treeID','tree'+i);			
+			li.appendTo('#treesUL');		
 		}		
 	}
 }
