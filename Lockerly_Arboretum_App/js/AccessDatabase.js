@@ -97,7 +97,7 @@ function showTreeContent()
 			var tree = myTrees[i];
 			var li =$('#treesLI').clone();
 			li.text('');
-			var html = '<a href = "map.html" onClick = "initializeMap(' + tree.id +')"><div class="resultNames">' +
+			var html = '<a href = "#map-canvas" onClick = "initializeMap(' + tree.id +')"><div class="resultNames">' +
 					   '<span class="donorName">' + tree.donor + '</span> for ' + 
 					   '<span class="honoreeName">' + tree.honoree + '</span></div>' +
 					   '<div class="resultInfo"><span class="treeName">' + tree.common + '</span>' +
@@ -130,8 +130,5 @@ function searchDB()
 	requestObj.open("GET", "./php/db_query.php?name=" + name + "&year=" + year + "&species=" + species + "", true);
 	requestObj.onreadystatechange = showTreeContent;
 	requestObj.send(null);
-
-	//Alert for testing purposes
-	//alert("Name:  " + name + ", Year: " + year + ", Species: " + species);
 }
 

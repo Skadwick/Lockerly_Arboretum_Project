@@ -99,9 +99,7 @@ if( isset($_GET['id']) )
 						 Lng,
 						 Lat
 				  FROM plants
-				  WHERE (ID = ' . intval(102) . ')';
-
-	echo $sql_query;
+				  WHERE (ID = ' . intval($id) . ')';
 
 	//Send the query to the database
 	$result = db_query($sql_query, $link);
