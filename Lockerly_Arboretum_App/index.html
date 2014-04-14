@@ -58,6 +58,7 @@ and buttons that the user will interact with.
         <script src="js/jquery-1.10.1.js"></script>   
         <script src="js/jquery.mobile-1.3.1/jquery.mobile-1.3.1.min.js"></script>
         <script src="js/AccessDatabase.js"></script>
+        <script src="js/MapTree.js"></script>
 	    <script src="js/LockerlyArboretumApp.js"></script>
 
         <!--
@@ -314,27 +315,29 @@ and buttons that the user will interact with.
 
                 <!--BEGIN TREE RESULT DISPLAY-->
                 <ul data-role="listview" id="treesUL" data-inset="true" >
-                    <li>    
+                    <li><a>    
                         <div class="resultNames">
-                            <span class="donorName">Donor</span>
-                            <span class="honoreeName">Honoree</span>
+                            <span class="donorName">Test Donor</span>
+                            for
+                            <span class="honoreeName">Test Honoree</span>
                         </div>
 
                         <div class="resultInfo">
-                            <span class="treeName">common</span>
+                            <span class="treeName">Test Common Name</span>
                             on: 
-                            <span class="donationDate">Date</span>
+                            <span class="donationDate">Test Date</span>
                         </div>
 
                         <div class="resultDedication">
-                            <span class="dedicationText">Dedication</span>
+                            <span class="dedicationText">Test Dedication</span>
                         </div>   
-
+                    </a>
                     </li>
                 </ul>
 
                 <ul data-role="listview" id="treesUL" data-inset="true" style="visibility: hidden">
                     <li id="treesLI">
+                         <a class = "treeLink" href="DFG">
                         <div class="resultNames">
                             <span class="donorName">Donor</span>
                             for
@@ -350,7 +353,7 @@ and buttons that the user will interact with.
                         <div class="resultDedication">
                             <span class="dedicationText">Dedication</span>
                         </div>
-                                                 
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -563,7 +566,7 @@ and buttons that the user will interact with.
 				<h1>Maps</h1>
 			</div>
 			<div role="main" class="ui-content" id="map-canvas">
-				<p> Page Content goes here.</p>
+				<!-- map loads here... -->
 			</div>
 		</div>
 

@@ -97,7 +97,7 @@ function showTreeContent()
 			var tree = myTrees[i];
 			var li =$('#treesLI').clone();
 			li.text('');
-			var html = '<a href = "map.html"><div class="resultNames">' +
+			var html = '<a href = "map.html" onClick = "initializeMap(' + tree.id +')"><div class="resultNames">' +
 					   '<span class="donorName">' + tree.donor + '</span> for ' + 
 					   '<span class="honoreeName">' + tree.honoree + '</span></div>' +
 					   '<div class="resultInfo"><span class="treeName">' + tree.common + '</span>' +
