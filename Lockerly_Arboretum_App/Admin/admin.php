@@ -4,6 +4,9 @@
 include ('../php/db_connect.php');
 $link=db_connect();
 
+//Begin the user's session
+session_start();
+
 
 /*
 If the values in the user and pwd forms are set, then the user has tried to
@@ -18,7 +21,7 @@ if( isset($_POST['user']) && isset($_POST['pwd']) )
 			  AND password="' . $_POST['pwd'] . '"';
 
 	//Text to help with testing
-	echo '<h3>Query: </h3>' . $query;
+	//echo '<h3>Query: </h3>' . $query;
 
 	//Check the query result
 	$result = mysql_query($query);
@@ -30,7 +33,7 @@ if( isset($_POST['user']) && isset($_POST['pwd']) )
 		$user = mysql_result($result,$r, 'username');
 	}
 
-	//if results are returned, login information was correct, setup admin session.
+	//if results are returned, login information was correct, set session variables
 	if(isset($user)){ 
 		$_SESSION['userName'] = $user;
 	}
@@ -48,7 +51,13 @@ be set.  If they are sucessfully logged in, then display their options as an adm
 */
 if( isset($_SESSION['userName']) )
 {	
-	echo '<br>Logged in as: '. $_SESSION['userName'];
+	//Allow user to logout
+	echo '<br>Logged in as: '. $_SESSION['userName'] . '
+		  <a href="./admin.php?logout=true">Logout</a><br><br>';
+
+	//List admin options
+	echo '<a href="./EditDB.php?AddRemove=add">Add a tree to the database</a><br>
+		  <a href="./EditDB.php?AddRemove=remove">Delete a tree from the database</a><br>';
 }
 
 
@@ -63,8 +72,19 @@ else
 		  		<tr><td class = "login">Username: </td><td class = "login"><input type="text" name="user"></td></tr>
 		  		<tr><td class = "login">Password: </td><td class = "login"><input type="password" name="pwd"></td></tr>
 		  	</table>
-		  	<input type="image" name="submit" value="submit" src="http://i.imgur.com/w8Xwr7g.png" />
+		  	<input type="image" name="submit" value="Login" />
 		</form>';
+}
+
+
+/*
+sdfs
+*/
+if( isset($_GET['logout']) )
+{
+	echo 'Logging out...';
+	session_destroy();
+	echo '<script>window.location = "./admin.php";</script>'; //reload the page.
 }
 
 ?>
