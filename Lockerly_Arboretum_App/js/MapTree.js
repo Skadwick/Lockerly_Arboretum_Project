@@ -43,7 +43,7 @@ function mapReady()
 	    //Retrieve necessary data
 		var tree = data[0];
 		treeLat = tree.lat;
-		treeLng = tree.lng;
+		treeLon = tree.lon;
 	
 		displayMap();	
 	}
@@ -71,7 +71,7 @@ function displayMap()
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 	//set up lat and long for marker
-	myLatlng = new google.maps.LatLng(treeLat, treeLng);
+	myLatlng = new google.maps.LatLng(treeLat, treeLon);
 	genMarker = myLatlng;	//holds points for marker
 		  
 	//To add the marker to the map, use the 'map' property

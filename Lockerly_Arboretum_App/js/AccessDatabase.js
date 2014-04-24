@@ -87,6 +87,7 @@ function showTreeContent()
 	{
 		//Retrieve the JSON encoded array, which is stored at index-key: media
 		var text = requestObj.responseText;
+		alert(text);
 	    var myTrees = jQuery.parseJSON(text).media;
 
 		$('#treesUL').text('');
@@ -98,10 +99,10 @@ function showTreeContent()
 			var li =$('#treesLI').clone();
 			li.text('');
 			var html = '<a href = "#map-canvas" onClick = "initializeMap(' + tree.id +')"><div class="resultNames">' +
-					   '<span class="donorName">' + tree.donor + '</span> for ' + 
-					   '<span class="honoreeName">' + tree.honoree + '</span></div>' +
+					   '<span class="donorName">' + tree.don_fName + ' ' + tree.don_lName + '</span> for ' + 
+					   '<span class="honoreeName">' + tree.hon_fName + ' ' + tree.hon_lName + '</span></div>' +
 					   '<div class="resultInfo"><span class="treeName">' + tree.common + '</span>' +
-					   ' on: <span class="donationDate">' + tree.date + '</span></div>' +
+					   ' on: <span class="donationDate">' + tree.don_date + '</span></div>' +
 					   '<div class="resultDedication"><span class="dedicationText">' + 
 					   tree.dedication + '</span></div>';
 			li.append(html);

@@ -12,7 +12,8 @@ $link=db_connect();
 if( isset($_GET['initialize']) )
 {
 
-	$sql_query = "SELECT DISTINCT Year
+	//Find all the distinct dates in which trees were donates
+	$sql_query = "SELECT DISTINCT don_date
 				  FROM plants";
 
 	//Send the query to the database
@@ -23,10 +24,24 @@ if( isset($_GET['initialize']) )
 	while ( $row = mysql_fetch_array($result,MYSQL_ASSOC) )
 	{ 
 		//Associative array.  key => value, key2 => value2, etc...
-		$entity = array('year' => $row['Year']);
+		$entity = array('year' => $row['don_date']);
 		array_push($myArray,$entity);
 	}
 
+
+	//Find all the distinct common names for the trees at lockerly
+	/*
+	$sql_query = "SELECT DISTINCT common
+				  FROM plants";
+	$result = db_query($sql_query, $link);
+	$myArray = array();
+
+	while ( $row = mysql_fetch_array($result,MYSQL_ASSOC) )
+	{ 
+		$entity = array('common' => $row['common']);
+		array_push($myArray,$entity);
+	}
+	*/
 }
 
 
@@ -41,17 +56,21 @@ else if( isset($_GET['name']) || isset($_GET['year']) || isset($_GET['species'])
 	Creating the 'base' query for a tree search. All other user choices will be
 	concatenated to the end of this string.
 	*/
-	$sql_query = "SELECT ID,
-						 Donor,
-						 Honoree,
-						 Dedication,
-						 Common,
-						 Date,
-						 Location
+	$sql_query = "SELECT plants.plant_id,
+						 donors.fname AS don_first,
+						 donors.lname AS don_last,
+						 honorees.fname AS hon_first,
+						 honorees.lname AS hon_last,
+						 plants.common,
+						 plants.don_date
 				  FROM plants
-				  WHERE ID > 0";
+				  LEFT JOIN Common ON Common.common = Plants.common
+				  LEFT JOIN Donors ON Donors.don_id = Plants.don_id
+				  INNER JOIN Honorees ON Honorees.hon_id = Plants.hon_id
+				  WHERE plants.plant_id > 0";
 
 	//Add additional information to the query
+	/*
 	if (isset($searchName) && $searchName != '')
 	{
 		$sql_query = $sql_query . " AND Donor LIKE '%" . $searchName . "%'";
@@ -64,6 +83,7 @@ else if( isset($_GET['name']) || isset($_GET['year']) || isset($_GET['species'])
 	{
 		$sql_query = $sql_query . " AND Species = '" . $searchSpecies . "'";
 	}
+	*/
 
 	//Send the query to the database
 	$result = db_query($sql_query, $link);
@@ -73,13 +93,13 @@ else if( isset($_GET['name']) || isset($_GET['year']) || isset($_GET['species'])
 	while ( $row = mysql_fetch_array($result,MYSQL_ASSOC) )
 	{ 
 		//Associative array.  key => value, key2 => value2, etc...
-		$entity = array('id' => $row['ID'] ,
-						'donor' => $row['Donor'] ,
-					   'honoree' => $row['Honoree'] ,
-					   'dedication' => $row['Dedication'] ,
-					   'common' => $row['Common'] ,
-					   'date' => $row['Date'] ,
-					   'location' => $row['Location']);
+		$entity = array('id' => $row['plant_id'] ,
+						'don_fName' => $row['don_first'] ,
+						'don_lName' => $row['don_last'] ,
+						'hon_fName' => $row['hon_first'] ,
+						'hon_lName' => $row['hon_last'] ,
+						'common' => $row['common'] ,
+						'don_date' => $row['don_date']);
 		array_push($myArray,$entity);
 	}
 }
@@ -89,17 +109,11 @@ else if( isset($_GET['name']) || isset($_GET['year']) || isset($_GET['species'])
 if( isset($_GET['id']) )
 {
 	$id = $_GET['id'];
-	$sql_query = 'SELECT ID,
-						 Donor,
-						 Honoree,
-						 Dedication,
-						 Common,
-						 Date,
-						 Location,
-						 Lng,
-						 Lat
+	$sql_query = 'SELECT common,
+						 lat,
+						 lon
 				  FROM plants
-				  WHERE (ID = ' . intval($id) . ')';
+				  WHERE (plant_id = ' . intval($id) . ')';
 
 	//Send the query to the database
 	$result = db_query($sql_query, $link);
@@ -109,15 +123,9 @@ if( isset($_GET['id']) )
 	while ( $row = mysql_fetch_array($result,MYSQL_ASSOC) )
 	{ 
 		//Associative array.  key => value, key2 => value2, etc...
-		$entity = array('id' => $row['ID'] ,
-						'donor' => $row['Donor'] ,
-					   'honoree' => $row['Honoree'] ,
-					   'dedication' => $row['Dedication'] ,
-					   'common' => $row['Common'] ,
-					   'date' => $row['Date'] ,
-					   'location' => $row['Location'] ,
-					   'lng' => $row['Lng'] ,
-					   'lat' => $row['Lat']);
+		$entity = array('common' => $row['common'] ,
+					   'lon' => $row['lon'] ,
+					   'lat' => $row['lat']);
 		array_push($myArray,$entity);
 	}
 }
