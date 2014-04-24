@@ -38,9 +38,8 @@ This function populates the necessary dropdown menus for the search screen.
 function initializeData()
 {
 	requestObj.open("GET", "./php/db_query.php?initialize=true", true);
-	requestObj.onreadystatechange = showYears;
+	requestObj.onreadystatechange = populateDate;
 	requestObj.send(null);
-	//alert('Database Loaded!');
 }
 
 
@@ -48,25 +47,25 @@ function initializeData()
 /*
 
 */
-function showYears()
+function populateDate()
 {
 	if (requestObj.readyState == 4) //Request completed
 	{
 		//Retrieve the JSON encoded array, which is stored at index-key: media
 		var text = requestObj.responseText;
-	    var years = jQuery.parseJSON(text).media;	
-		//$('#select-choice-1').text('');
-
-		//Alert the number of rows, for testing purposes
-		//alert(years.length + " results.");
+	    var results = jQuery.parseJSON(text).media;	
 
 		//Loop through the JSON array, and add each element to a <li>, which is then added to the <ul>
-		for(var i = 0; i < years.length; i++)
+		for(var i = 0; i < results.length; i++)
 		{
-			var year = years[i];
-			//var option = $('#yearMenu').clone();
+			var result = results[i];
 
-			$('#select-choice-1').append('<option id="yearMenu" value="' + year['year'] + '">' + year['year'] + '</option>');
+			//Populate the appropriate dropdown menu
+			if ( result['year'] != null )
+				$('#select-choice-1').append('<option id="yearMenu" value="' + result['year'] + '">' + result['year'] + '</option>');
+
+			if ( result['common'] != null && result['common'].length > 1 )
+				$('#select-choice-2').append('<option id="commonMenu" value="' + result['common'] + '">' + result['common'] + '</option>');
 		}		
 	}
 }

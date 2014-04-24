@@ -30,18 +30,15 @@ if( isset($_GET['initialize']) )
 
 
 	//Find all the distinct common names for the trees at lockerly
-	/*
 	$sql_query = "SELECT DISTINCT common
-				  FROM plants";
+				  FROM plants
+				  ORDER BY common";
 	$result = db_query($sql_query, $link);
-	$myArray = array();
-
 	while ( $row = mysql_fetch_array($result,MYSQL_ASSOC) )
 	{ 
 		$entity = array('common' => $row['common']);
 		array_push($myArray,$entity);
 	}
-	*/
 }
 
 
@@ -50,7 +47,7 @@ else if( isset($_GET['name']) || isset($_GET['year']) || isset($_GET['species'])
 {
 	$searchName = $_GET['name'];
 	$searchYear = $_GET['year'];
-	$searchSpecies = $_GET['species'];
+	$searchCommon = $_GET['species'];
 
 	/*
 	Creating the 'base' query for a tree search. All other user choices will be
@@ -70,20 +67,19 @@ else if( isset($_GET['name']) || isset($_GET['year']) || isset($_GET['species'])
 				  WHERE plants.plant_id > 0";
 
 	//Add additional information to the query
-	/*
+				  /*
 	if (isset($searchName) && $searchName != '')
 	{
 		$sql_query = $sql_query . " AND Donor LIKE '%" . $searchName . "%'";
-	}
+	}*/
 	if (isset($searchYear) && $searchYear != 'all')
 	{
-		$sql_query = $sql_query . " AND Year = '" . $searchYear . "'";
+		$sql_query = $sql_query . " AND plants.don_date LIKE '%" . $searchYear . "%'";
 	}
-	if (isset($searchSpecies) && $searchSpecies != 'all')
+	if (isset($searchCommon) && $searchCommon != 'all')
 	{
-		$sql_query = $sql_query . " AND Species = '" . $searchSpecies . "'";
+		$sql_query = $sql_query . " AND plants.common LIKE '%" . $searchCommon . "%'";
 	}
-	*/
 
 	//Send the query to the database
 	$result = db_query($sql_query, $link);
