@@ -67,11 +67,14 @@ else if( isset($_GET['name']) || isset($_GET['year']) || isset($_GET['species'])
 				  WHERE plants.plant_id > 0";
 
 	//Add additional information to the query
-				  /*
+				  
 	if (isset($searchName) && $searchName != '')
 	{
-		$sql_query = $sql_query . " AND Donor LIKE '%" . $searchName . "%'";
-	}*/
+		$sql_query = $sql_query . " AND (donors.fname LIKE '%" . $searchName . "%' 
+										OR donors.lname LIKE '%" . $searchName . "%'
+										OR honorees.fname LIKE '%" . $searchName . "%'
+										OR honorees.lname LIKE '%" . $searchName . "%')";
+	}
 	if (isset($searchYear) && $searchYear != 'all')
 	{
 		$sql_query = $sql_query . " AND plants.don_date LIKE '%" . $searchYear . "%'";
