@@ -171,7 +171,7 @@ and buttons that the user will interact with.
                 <h2>Address: </h2>
                 <p id="info">
                      1504 Irwinton Rd,<br>Milledgeville, GA 31061<br><br>
-                     <a href="https://www.google.com/maps?t=m&ll=33.062045,-83.22541&z=14&q=Lockery+Arboretum&cid=0xbb39579bcb7f56cf&output=classic">Click here to view on Google Maps</a>
+                     <a style="color: #ABAB80;" href="https://www.google.com/maps?t=m&ll=33.062045,-83.22541&z=14&q=Lockery+Arboretum&cid=0xbb39579bcb7f56cf&output=classic">Click here to view on Google Maps</a>
                      <br>
                 </p>
 
@@ -311,47 +311,15 @@ and buttons that the user will interact with.
 
                 <!--BEGIN TREE RESULT DISPLAY-->
                 <ul data-role="listview" id="treesUL" data-inset="true" >
-                    <li><a>    
-                        <div class="resultNames">
-                            <span class="donorName">Test Donor</span>
-                            for
-                            <span class="honoreeName">Test Honoree</span>
-                        </div>
-
-                        <div class="resultInfo">
-                            <span class="treeName">Test Common Name</span>
-                            on: 
-                            <span class="donationDate">Test Date</span>
-                        </div>
-
-                        <div class="resultDedication">
-                            <span class="dedicationText">Test Dedication</span>
-                        </div>   
-                    </a>
-                    </li>
+                    
                 </ul>
 
                 <ul data-role="listview" id="treesUL" data-inset="true" style="visibility: hidden">
-                    <li id="treesLI">
-                         <a class = "treeLink" href="DFG">
-                        <div class="resultNames">
-                            <span class="donorName">Donor</span>
-                            for
-                            <span class="honoreeName">Honoree</span>
-                        </div>
-
-                        <div class="resultInfo">
-                            <span class="treeName">common</span>
-                            on: 
-                            <span class="donationDate">Date</span>
-                        </div>
-
-                        <div class="resultDedication">
-                            <span class="dedicationText">Dedication</span>
-                        </div>
-                        </a>
+                    <li class="treesLI" id="treesLI">
+                        
                     </li>
                 </ul>
+
             </div>
         </div>  
 	    <!--END OF TREE SEARCH PAGE-->

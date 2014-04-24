@@ -87,7 +87,6 @@ function showTreeContent()
 	{
 		//Retrieve the JSON encoded array, which is stored at index-key: media
 		var text = requestObj.responseText;
-		alert(text);
 	    var myTrees = jQuery.parseJSON(text).media;
 
 		$('#treesUL').text('');
@@ -98,19 +97,78 @@ function showTreeContent()
 			var tree = myTrees[i];
 			var li =$('#treesLI').clone();
 			li.text('');
-			var html = '<a href = "#map-canvas" onClick = "initializeMap(' + tree.id +')"><div class="resultNames">' +
-					   '<span class="donorName">' + tree.don_fName + ' ' + tree.don_lName + '</span> for ' + 
-					   '<span class="honoreeName">' + tree.hon_fName + ' ' + tree.hon_lName + '</span></div>' +
-					   '<div class="resultInfo"><span class="treeName">' + tree.common + '</span>' +
-					   ' on: <span class="donationDate">' + tree.don_date + '</span></div>' +
-					   '<div class="resultDedication"><span class="dedicationText">' + 
-					   tree.dedication + '</span></div>';
+
+			var html = formatTreeContent(tree);
 			li.append(html);
 
 			li.removeAttr('id');
 			li.appendTo('#treesUL');		
 		}		
 	}
+}
+
+
+
+/*
+Formats the results of the query into html, which will be added to a li tag.
+*/
+function formatTreeContent(list)
+{
+
+	var tree = list;
+	var donorStr;
+	var honoreeStr;
+	var speciesStr;
+	var dateStr;
+	var formatStr;
+
+	//Check for null values
+	if (tree.don_fName == null)
+		tree.don_fName = '';
+	if (tree.don_lName == null)
+		tree.don_lName = '';
+	if (tree.hon_fName == null)
+		tree.hon_fName = '';
+	if (tree.hon_lName == null)
+		tree.hon_lName = '';
+	if (tree.common == null)
+		tree.common = '';
+	if (tree.don_date == null)
+		tree.don_date = '0000-00-00';
+
+	//Check if the tree donor is listed
+	if( tree.don_fName.length > 1 || tree.don_lName.length > 1) 
+		donorStr = 'Donated by ' + tree.don_fName + ' ' + tree.don_lName + ' ';
+	else
+		donorStr = 'Donated ';
+
+	//Check if a honoree is listed for the tree
+	if(tree.hon_fName.length > 1 || tree.hon_lName.length > 1)
+		honoreeStr = 'for ' + tree.hon_fName + ' ' + tree.hon_lName + ' ';
+	else
+		honoreeStr = '';
+
+	//Check if the tree common name is listed
+	if (tree.common != null && tree.common.length > 1)
+		speciesStr = 'Species: ' + tree.common;
+	else
+		speciesStr = 'Unknown species';
+
+	//Check of the tree donation date is set
+	if (tree.don_date != null && tree.don_date != '0000-00-00')
+		dateStr = '<br>Donation date: ' + tree.don_date;
+	else
+		dateStr = '<br>Unknown donation date'
+
+	formatStr = '<a class="resultLink" href = "#map-canvas" onClick = "initializeMap(' + tree.id +')">' + 
+					'<div class="resultNames"><span class="donorName">' + donorStr + '</span>' + 
+					'<span class="honoreeName">' + honoreeStr + '</span>' +
+					'</div>' +
+					'<div class="resultInfo"><span class="treeName">' + speciesStr + '</span>' +
+					'<span class="donationDate">' + dateStr + '</span>' +
+					'</div></a>';
+
+	return formatStr;
 }
 
 

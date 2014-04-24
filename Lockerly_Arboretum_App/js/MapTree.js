@@ -4,6 +4,7 @@ var map;		//hold map
 var genMarker;	//hold temporary marker
 var treeLat;		//hold X point for map
 var treeLng;		//hold Y point for map
+var markerText;
 	
 //DEBUGGING ONLY!!
 //Set up the initial marker
@@ -44,6 +45,7 @@ function mapReady()
 		var tree = data[0];
 		treeLat = tree.lat;
 		treeLon = tree.lon;
+		markerText = 'Species: ' + tree.common; // use \n to make the popup multi-lined.
 	
 		displayMap();	
 	}
@@ -79,6 +81,6 @@ function displayMap()
 	{
 		position: genMarker,	//sets marker to the current position being held in genMarker
 		map: map,				//Refreshes map
-		title:"Test Marker!"	//Sets the title of the marker  (Will hold data pertaining to marker upon completion.
+		title:markerText	//Sets the title of the marker  (Will hold data pertaining to marker upon completion.
 	});
 }
