@@ -5,31 +5,33 @@ include ('../php/db_connect.php');
 
 $myArray = array(); //JSON encoded Array
 
-//Connect to the database
-$link=db_connect();
+$link=db_connect(); //Connect to the database, and store the link in a variable
 
-//If called from the initialize data method...
+
+/*
+GET[iniialize] is set when this file is called from the initialize() method.  This method
+finds all of the distinct dates, and tree species stored on the database.  This information
+is used to populate the dropdown menus on the Find a Tree page.
+*/
 if( isset($_GET['initialize']) )
 {
-
-	//Find all the distinct dates in which trees were donates
 	$sql_query = "SELECT DISTINCT don_date
 				  FROM plants";
 
-	//Send the query to the database
-	$result = db_query($sql_query, $link);
+	$result = db_query($sql_query, $link); //Query the database, and store the result
 	$myArray = array(); //JSON encoded Array
 
-	//Loop through each row of the resulting relation and do whatever work is necessary.
+	//Loop through each row of the resulting relation
 	while ( $row = mysql_fetch_array($result,MYSQL_ASSOC) )
 	{ 
-		//Associative array.  key => value, key2 => value2, etc...
+		//Store result in an associative array, and then
+		//store the associative array in the JSON array  
+		//key => value
 		$entity = array('year' => $row['don_date']);
 		array_push($myArray,$entity);
 	}
 
-
-	//Find all the distinct common names for the trees at lockerly
+	//Same thing as above, but finding distinct common species in the DB
 	$sql_query = "SELECT DISTINCT common
 				  FROM plants
 				  ORDER BY common";
@@ -42,9 +44,14 @@ if( isset($_GET['initialize']) )
 }
 
 
-//If any of these variables are set, then the user is searching for a tree.
+/*
+GET[name], GET[year], or GET[species] is set when this file is called from the searchDB() method.  
+This if statement searches the database for all the trees which meet the search criteria, and
+sends the result to the calling javascript method.
+*/
 else if( isset($_GET['name']) || isset($_GET['year']) || isset($_GET['species']))
 {
+	//Store the user input
 	$searchName = $_GET['name'];
 	$searchYear = $_GET['year'];
 	$searchCommon = $_GET['species'];
@@ -66,8 +73,7 @@ else if( isset($_GET['name']) || isset($_GET['year']) || isset($_GET['species'])
 				  INNER JOIN Honorees ON Honorees.hon_id = Plants.hon_id
 				  WHERE plants.plant_id > 0";
 
-	//Add additional information to the query
-				  
+	//Add additional information to the query				  
 	if (isset($searchName) && $searchName != '')
 	{
 		$sql_query = $sql_query . " AND (donors.fname LIKE '%" . $searchName . "%' 
@@ -130,7 +136,8 @@ if( isset($_GET['id']) )
 }
 
 
-//Encode the array
+//Encode the array, and echo it.  When echo'd, the javascript method that
+//called this file can retrieve the information via an XMLHttpRequest response.
 $newArray = array('media' =>$myArray);
 $output= json_encode($newArray);
 echo $output;

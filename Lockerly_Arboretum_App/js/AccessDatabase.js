@@ -38,16 +38,17 @@ This function populates the necessary dropdown menus for the search screen.
 function initializeData()
 {
 	requestObj.open("GET", "./php/db_query.php?initialize=true", true);
-	requestObj.onreadystatechange = populateDate;
+	requestObj.onreadystatechange = populateMenu;
 	requestObj.send(null);
 }
 
 
 
 /*
-
+This method is called once the XMLHttpRequest object is ready.  pupulateMenu() retrieves
+the result of the query, and exports the relevant data from the response text.
 */
-function populateDate()
+function populateMenu()
 {
 	if (requestObj.readyState == 4) //Request completed
 	{
@@ -90,13 +91,14 @@ function showTreeContent()
 
 		$('#treesUL').text('');
 
-		//Loop through the JSON array, and add each element to a <li>, which is then added to the <ul>
+		//Loop through the JSON array, and add each result to the <ul>
 		for(var i = 0; i < myTrees.length; i++)
 		{
 			var tree = myTrees[i];
 			var li =$('#treesLI').clone();
 			li.text('');
 
+			//Format a li tag with the relevant information
 			var html = formatTreeContent(tree);
 			li.append(html);
 
