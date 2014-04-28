@@ -5,7 +5,9 @@ include ('../php/db_connect.php');
 $link=db_connect();
 
 //Begin the user's session
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 
 /*
@@ -16,12 +18,9 @@ If a correct login was entered, then setup the admin session.
 if( isset($_POST['user']) && isset($_POST['pwd']) )
 {
 	$query = 'SELECT * 
-			  FROM admin 
+			  FROM users 
 			  WHERE username="' . $_POST['user'] . '"
 			  AND password="' . $_POST['pwd'] . '"';
-
-	//Text to help with testing
-	//echo '<h3>Query: </h3>' . $query;
 
 	//Check the query result
 	$result = mysql_query($query);
@@ -56,8 +55,9 @@ if( isset($_SESSION['userName']) )
 		  <a href="./index.php?logout=true">Logout</a><br><br>';
 
 	//List admin options
-	echo '<a href="./EditDB.php?AddRemove=add">Add a tree to the database</a><br>
-		  <a href="./EditDB.php?AddRemove=remove">Delete a tree from the database</a><br>';
+	echo '<a href="./EditDB.php?AddRemove=tree">Add/remove a tree</a><br>
+		  <a href="./EditDB.php?AddRemove=donor">Add/remove a donor</a><br>
+		  <a href="./EditDB.php?AddRemove=honoree">Add/remove a honoree</a><br>';
 }
 
 
