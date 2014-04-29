@@ -9,13 +9,13 @@ if (session_status() == PHP_SESSION_NONE) {
 if( isset($_SESSION['userName']) )
 {	
 	echo '<br>Logged in as: '. $_SESSION['userName'] . '<br>
-		  <a href="./admin.php?logout=true">Logout</a><br><br>';
+		  <a href="./index.php?logout=true">Logout</a><br><br>';
 }
 else
 {
 	//Send them back if they are not logged in
 	echo 'You do not have permission to view this page.<br>';
-	echo '<script>window.location = "./admin.php";</script>';	
+	header( "refresh:3;url=index.php" );	
 }
 
 //Display form for adding a tree to the database

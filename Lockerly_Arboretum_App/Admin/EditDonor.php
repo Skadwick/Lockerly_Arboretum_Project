@@ -33,6 +33,18 @@ else if( isset($_POST['don_id']) && $_POST['don_id'] != null )
 }
 
 
+else if( isset($_GET['deleteid']) )
+{
+
+	$sql_query = "DELETE FROM donors
+  				  WHERE don_id=" . $_GET['deleteid'] . "";
+
+	$result = db_query($sql_query, $link);
+	echo "Donor sucessfully deleted!<br>The page will redirect you in a moment.";
+	header( "refresh:3;url=EditDB.php?AddRemove=donor" );
+}
+
+
 //If they are logged in, but no form has POSTed, then display the form
 else
 {
@@ -62,9 +74,34 @@ else
 
 	<input type="submit" name="submit" value="Add donor" />
 	
-</form>
+</form><hr><br>
 
 
 <?php
+
+$sql_query = "SELECT *
+			  FROM donors";
+$result = db_query($sql_query, $link);
+
+while ($row = mysql_fetch_assoc($result)) {
+   formatDeleteRow($row);
 }
+
+} //end of else statement
+
+//Formats the form containing the row to be deleted
+function formatDeleteRow($row)
+{
+	echo '<form action="../admin/EditDonor.php?deleteid=' . $row['don_id'] . '" method="post">
+	      <table>
+	      	<tr> 
+	      		<td> <input type="submit" name="submit" value="DELETE" /> </td>
+	      		<td>don_id:  ' . $row['don_id'] . '</td>
+	      		<td>  ' . $row['fname'] . '</td>
+	      		<td>  ' . $row['lname'] . '</td>
+	      	</tr>
+	      </table>	
+          </form>';
+}
+
 ?>
